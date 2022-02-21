@@ -1,3 +1,31 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@nepnepssis-khoa 
+emwdx
+/
+aa_21_22_rvr_challenge
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+aa_21_22_rvr_challenge/sphero_rvr.py /
+@emwdx
+emwdx fix indent
+Latest commit e5cbc38 3 days ago
+ History
+ 1 contributor
+282 lines (220 sloc)  9.04 KB
+   
 import board
 import busio
 import struct
@@ -14,7 +42,7 @@ class RVRDrive:
         self._uart = uart
         self._location = [0.0,0.0,0.0]
 
-    # RVRrRive.drive(speed,heading)
+    # RVRDrive.drive(speed,heading)
     # inputs: speed, heading
     # usage: drive the RVR at a given speed (0 - 255) at a heading (0 - 360). 
     # 0 is North, 90 is East, 180 is South, and 270 is West.
@@ -129,7 +157,7 @@ class RVRDrive:
     # RVRDrive.sensor_start()
     # inputs: none
     # Prepares the RVR to start sending location data. This must be called before using RVRDrive.get_x(), RVRDrive.get_y(), or RVRDrive.get_heading().
-     def sensor_start(self):
+    def sensor_start(self):
         self.conf_streaming()
         time.sleep(0.2)
         self.start_streaming()
@@ -280,3 +308,16 @@ class RVRDrive:
         return -(-180 - 180)*(value - 32768)/(0 - 65536)
 
     
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
