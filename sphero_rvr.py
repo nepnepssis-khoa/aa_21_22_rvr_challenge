@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@nepnepssis-khoa 
-emwdx
-/
-aa_21_22_rvr_challenge
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-aa_21_22_rvr_challenge/sphero_rvr.py /
-@emwdx
-emwdx fix indent
-Latest commit e5cbc38 3 days ago
- History
- 1 contributor
-282 lines (220 sloc)  9.04 KB
-   
 import board
 import busio
 import struct
@@ -308,16 +280,3 @@ class RVRDrive:
         return -(-180 - 180)*(value - 32768)/(0 - 65536)
 
     
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
