@@ -1,5 +1,3 @@
-# RVR drive example 2022-02-17
-
 import board
 import busio
 import time
@@ -8,9 +6,9 @@ import math
 import adafruit_hcsr04
 from sphero_rvr import RVRDrive
 
-sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D11, echo_pin=board.D10)    # M4 Metro express
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.B1, echo_pin=board.B0)    # M4 Metro express
 
-rvr = RVRDrive(uart = busio.UART(board.D1, board.D0, baudrate=115200))       # M4 Metro express
+rvr = RVRDrive(uart = busio.UART(board.A2, board.A3, baudrate=115200))       # M4 Metro express
 
 time.sleep(0.5)
 
