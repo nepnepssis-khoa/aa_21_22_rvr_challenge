@@ -16,17 +16,17 @@ class RVRDrive:
 
     # RVRDrive.drive(speed,heading)
     # inputs: speed, heading
-    # usage: drive the RVR at a given speed (0 - 255) at a heading (0 - 360). 
+    # usage: drive the RVR at a given speed (0 - 255) at a heading (0 - 360).
     # 0 is North, 90 is East, 180 is South, and 270 is West.
-    
+
     def drive(self,speed,heading):
 
         flags = 0x00
         speed = int(speed)
         if speed < 0:
             speed *= -1
-            heading += 180
-            heading %= 360
+            #heading += 180
+            #heading %= 360
             flags = 0x01
 
         drive_data = [
@@ -42,8 +42,8 @@ class RVRDrive:
 
     # RVRDrive.stop()
     # inputs: none
-    # usage: stop the RVR 
-    
+    # usage: stop the RVR
+
     def stop(self):
         self.set_raw_motors(self,0,0,0,0)
 
@@ -51,9 +51,9 @@ class RVRDrive:
 
     # RVRDrive.setMotors(left,right)
     # inputs: left, right
-    # usage: set the power to the left and right sides of the RVR. 
+    # usage: set the power to the left and right sides of the RVR.
     # This function limits the values to be between 0 and 255
-    
+
     def setMotors(self,left,right):
         # First set the direction of each motor based on its value
         rightMode = RawMotorModes.FORWARD if (right >= 0) else RawMotorModes.BACKWARD
@@ -85,9 +85,9 @@ class RVRDrive:
     # inputs: angle, x, y, speed
     # usage: The RVR will drive to specified x and y coordinates (measured in meters) relative to the
     # location of the RVR when it is first turned on. This initial location is (0,0). The angle is the
-    # final heading of the RVR when it stops at the coordinates. 
+    # final heading of the RVR when it stops at the coordinates.
     # Note: Slower speeds are more accurate.
-    
+
     def drive_to_position_si(self,yaw_angle, x, y, speed):
         SOP = 0x8d
         FLAGS = 0x06
@@ -137,28 +137,31 @@ class RVRDrive:
 
     # RVRDrive.get_x()
     # inputs: none
-    # returns the x coordinate of the RVR in meters relative to the origin (0,0).
+    # returns the x coordinate of the RVR in meters relative to the origin (0,0). 
+    # NOTE: you must call RVRDrive.update_sensors() before using this!
     def get_x(self):
         return self._location[0]
-   
+
 
     # RVRDrive.get_y()
     # inputs: none
     # returns the y coordinate of the RVR in meters relative to the origin (0,0).
+    # NOTE: you must call RVRDrive.update_sensors() before using this!
     def get_y(self):
         return self._location[1]
-    
-    
+
+
     # RVRDrive.get_heading()
     # inputs: none
     # returns the heading of the RVR as an angle between -180.0 and 180 degrees. North is 0, East is 90, West is -90.
+    # NOTE: you must call RVRDrive.update_sensors() before using this!
     def get_heading(self):
         return self._location[2]
-    
+
     # RVRDrive.set_all_leds(red, green, blue)
     # inputs: none
     # sets the red, green, and blue brightness, each as a number from 0-255.
-    
+
     def set_all_leds(self, red, green, blue):
         led_data = [
             0x8D, 0x3E, 0x11, 0x01, 0x1A, 0x1A, 0x00,
@@ -170,9 +173,9 @@ class RVRDrive:
         self._uart.write(bytearray(led_data))
         return
 
-    # Note - the functions below are not really intended to be used on their own. 
+    # Note - the functions below are not really intended to be used on their own.
     # You may find it useful to see what these functions do and to better understand how to use the functions that call them.
-    
+
     def wake(self):
         power_data = [0x8D, 0x3E, 0x11, 0x01, 0x13, 0x0D, 0x00]
         power_data.extend([~((sum(power_data) - 0x8D) % 256) & 0x00FF, 0xD8])
@@ -205,7 +208,7 @@ class RVRDrive:
 
         return
 
-    
+
     def conf_streaming(self):
 
         SOP = 0x8d
@@ -278,5 +281,3 @@ class RVRDrive:
 
     def _scale_angle_value(self,value):
         return -(-180 - 180)*(value - 32768)/(0 - 65536)
-
-    
