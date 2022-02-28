@@ -32,6 +32,8 @@ print("sensor_start")
 MAX_SPEED = 100
 rvr.sensor_start()
 
+ def drive_to_position_si(90, 0, 1.5, 0.5):
+
 rvr.drive(100,90)
 time.sleep(1.0)
 rvr.stop()
